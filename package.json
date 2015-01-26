@@ -1,0 +1,26 @@
+{
+  "name": "lohnsteuer",
+  "version": "0.1.0",
+  "description": "calculates german wage tax (Lohnsteuer)",
+  "main": "index.js",
+  "keywords": "german wage tax lohnsteuer pap",
+  "dependencies": {
+    "big-decimal": "^1.0.2",
+    "sax": "^0.6.1"
+  },
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "jslint": "^0.7.2",
+    "mocha": "^2.1.0"
+  },
+  "scripts": {
+    "test": "mocha",
+    "lint": "jslint --edition=latest helper/*.js *.js"
+  },
+  "author": "Vincent Schoettke <vincentschoettke@gmail.com>",
+  "license": "MPL v2.0",
+  "repository": {
+    "type" : "git",
+    "url" : "http://github.com/vschoettke/node-lohnsteuer.git"
+  }
+}
