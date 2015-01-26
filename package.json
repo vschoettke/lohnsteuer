@@ -21,6 +21,6 @@
   "license": "MPL v2.0",
   "repository": {
     "type" : "git",
-    "url" : "http://github.com/vschoettke/node-lohnsteuer.git"
+    "url" : "http://github.com/vschoettke/lohnsteuer.git"
   }
 }
