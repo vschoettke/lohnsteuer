@@ -5,7 +5,13 @@ var fs = require('fs');
 var sax = require("sax"),
     strict = true; // set to false for html-mode
 
-var result = '/*jslint node:true*/\n\'use strict\';\n\nvar BigDecimal = require(\'big-decimal\');\n\n';
+var result = '/*jslint node:true*/\n' +
+    '\'use strict\';\n' +
+    '\nvar BigDecimal = require(\'big-decimal\');\n' +
+    'if (typeof BigDecimal !== \'function\') {\n' +
+    '    BigDecimal = BigDecimal.BigDecimal;\n' +
+    '}\n\n';
+
 var indentLevel = 0;
 
 var className;

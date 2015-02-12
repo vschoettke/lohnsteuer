@@ -1,6 +1,6 @@
 {
   "name": "lohnsteuer",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "calculates german wage tax (Lohnsteuer)",
   "main": "index.js",
   "keywords": "german wage tax lohnsteuer pap",
@@ -15,7 +15,8 @@
   },
   "scripts": {
     "test": "mocha",
-    "lint": "jslint --edition=latest helper/*.js *.js"
+    "lint": "jslint --edition=latest helper/*.js *.js",
+    "postinstall": "node helper/convert.js helper/Lohnsteuer2006Big.xml >lohnsteuer/lohnsteuer2006.js && node helper/convert.js helper/Lohnsteuer2007Big.xml >lohnsteuer/lohnsteuer2007.js && node helper/convert.js helper/Lohnsteuer2008Big.xml >lohnsteuer/lohnsteuer2008.js && node helper/convert.js helper/Lohnsteuer2009Big.xml >lohnsteuer/lohnsteuer2009.js && node helper/convert.js helper/Lohnsteuer2010Big.xml >lohnsteuer/lohnsteuer2010.js && node helper/convert.js helper/Lohnsteuer2011BisNovember.xml >lohnsteuer/lohnsteuer2011BisNov.js && node helper/convert.js helper/Lohnsteuer2011Dezember.xml >lohnsteuer/lohnsteuer2011Dez.js && node helper/convert.js helper/Lohnsteuer2012.xml >lohnsteuer/lohnsteuer2012.js && node helper/convert.js helper/Lohnsteuer2013_2.xml >lohnsteuer/lohnsteuer2013.js && node helper/convert.js helper/Lohnsteuer2014.xml >lohnsteuer/lohnsteuer2014.js && node helper/convert.js helper/Lohnsteuer2015.xml >lohnsteuer/lohnsteuer2015.js"
   },
   "author": "Vincent Schoettke <vincentschoettke@gmail.com>",
   "license": "MPL v2.0",
