@@ -1,6 +1,6 @@
 {
   "name": "lohnsteuer",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "calculates german wage tax (Lohnsteuer)",
   "main": "index.js",
   "keywords": "german wage tax lohnsteuer pap",
@@ -21,7 +21,7 @@
   "author": "Vincent Schoettke <vincentschoettke@gmail.com>",
   "license": "MPL v2.0",
   "repository": {
-    "type" : "git",
-    "url" : "http://github.com/vschoettke/lohnsteuer.git"
+    "type": "git",
+    "url": "http://github.com/vschoettke/lohnsteuer.git"
   }
 }
