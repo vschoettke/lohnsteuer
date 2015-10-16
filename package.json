@@ -6,16 +6,16 @@
   "keywords": "german wage tax lohnsteuer pap",
   "dependencies": {
     "big-decimal": "^1.0.2",
-    "sax": "^0.6.1"
+    "sax": "^1.1.3"
   },
   "devDependencies": {
-    "chai": "^1.10.0",
-    "jslint": "^0.7.2",
-    "mocha": "^2.1.0"
+    "chai": "^3.3.0",
+    "jslint": "^0.9.3",
+    "mocha": "^2.3.3"
   },
   "scripts": {
     "test": "mocha",
-    "lint": "jslint --edition=latest helper/*.js *.js",
+    "lint": "jslint --edition=2014-07-08 helper/*.js *.js",
     "postinstall": "node helper/convert.js helper/Lohnsteuer2006Big.xml >lohnsteuer/lohnsteuer2006.js && node helper/convert.js helper/Lohnsteuer2007Big.xml >lohnsteuer/lohnsteuer2007.js && node helper/convert.js helper/Lohnsteuer2008Big.xml >lohnsteuer/lohnsteuer2008.js && node helper/convert.js helper/Lohnsteuer2009Big.xml >lohnsteuer/lohnsteuer2009.js && node helper/convert.js helper/Lohnsteuer2010Big.xml >lohnsteuer/lohnsteuer2010.js && node helper/convert.js helper/Lohnsteuer2011BisNovember.xml >lohnsteuer/lohnsteuer2011BisNov.js && node helper/convert.js helper/Lohnsteuer2011Dezember.xml >lohnsteuer/lohnsteuer2011Dez.js && node helper/convert.js helper/Lohnsteuer2012.xml >lohnsteuer/lohnsteuer2012.js && node helper/convert.js helper/Lohnsteuer2013_2.xml >lohnsteuer/lohnsteuer2013.js && node helper/convert.js helper/Lohnsteuer2014.xml >lohnsteuer/lohnsteuer2014.js && node helper/convert.js helper/Lohnsteuer2015.xml >lohnsteuer/lohnsteuer2015.js"
   },
   "author": "Vincent Schoettke <vincentschoettke@gmail.com>",
