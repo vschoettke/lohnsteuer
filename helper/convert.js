@@ -5,12 +5,14 @@ var fs = require('fs');
 var sax = require("sax"),
     strict = true; // set to false for html-mode
 
-var result = '/*jslint node:true*/\n' +
+var header = '/*jslint node:true*/\n' +
     '\'use strict\';\n' +
     '\nvar BigDecimal = require(\'big-decimal\');\n' +
     'if (typeof BigDecimal !== \'function\') {\n' +
     '    BigDecimal = BigDecimal.BigDecimal;\n' +
     '}\n\n';
+
+var result = '';
 
 var indentLevel = 0;
 
@@ -73,6 +75,8 @@ function appendVariableDeclaration(data) {
     appendLine('var ' + data.name + (data.default !== undefined ? ' = ' + cleanupCode(data.default) : '') + '; // ' + data.type + '\n');
 }
 
+var constants = "";
+
 function appendConstant(data) {
     // transform array (replace {} with [] and remove extra spaces)
     var cleanedValueLines = cleanupCode(data.value
@@ -84,19 +88,19 @@ function appendConstant(data) {
             .replace(/,/g, ',\n') // add newline after each comma
             .split('\n');
 
-    appendLine('// const ' + data.type + '\n');
+    constants += '// const ' + data.type + '\n';
 
     if (cleanedValueLines.length === 1) {
-        appendLine('var ' + data.name + ' = ' + cleanedValueLines[0].trim() + ';\n');
+        constants += 'var ' + data.name + ' = ' + cleanedValueLines[0].trim() + ';\n';
         return;
     }
 
-    appendLine('var ' + data.name + ' = ' + cleanedValueLines[0].trim() + '\n');
+    constants += 'var ' + data.name + ' = ' + cleanedValueLines[0].trim() + '\n';
     incIndent();
     cleanedValueLines.slice(1, cleanedValueLines.length - 1).map(function (line) {
-        appendLine(line.trim() + '\n');
+        constants += line.trim() + '\n';
     });
-    appendLine(cleanedValueLines.slice(-1)[0].trim() + ';\n');
+    constants += cleanedValueLines.slice(-1)[0].trim() + ';\n';
     decIndent();
 }
 
@@ -213,7 +217,7 @@ saxStream.on("comment", function (commentText) {
 
 saxStream.on("end", function () {
     // parser stream is done, and ready to have more stuff written to it.
-    process.stdout.write(result);
+    process.stdout.write(header + constants + result);
 });
 
 if (!process.argv[2]) {
