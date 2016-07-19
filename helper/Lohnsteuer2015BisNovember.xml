@@ -1,9 +1,10 @@
-<PAP name="Lohnsteuer2015Big">   
+<PAP name="Lohnsteuer2015Big" version="1.0">   
     <VARIABLES> 
-		<!-- Stand: 2014-12-15 -->
+		<!-- Stand: 2015-11-16 -->
 		<!-- ZIVIT Düsseldorf--> 
 
     <!--  EINGABEPARAMETER  -->
+    <INPUTS>
         <!-- 1, wenn die Anwendung des Faktorverfahrens gewählt wurden (nur in Steuerklasse IV) -->
         <INPUT name="af" type="int" default="1.0"/>
 
@@ -161,10 +162,13 @@
     	
     	<!-- In SONSTB enthaltene Entschädigungen nach § 24 Nummer 1 EStG in Cent -->
     	<INPUT name="SONSTENT" type="BigDecimal" default="BigDecimal.ZERO"/>
-
+		</INPUTS>
     <!--  AUSGABEPARAMETER  -->
 
-        <!-- Bemessungsgrundlage fuer die Kirchenlohnsteuer in Cents -->
+       
+        <OUTPUTS type="STANDARD">
+        
+         <!-- Bemessungsgrundlage fuer die Kirchenlohnsteuer in Cents -->
         <OUTPUT name="BK" type="BigDecimal" default="new BigDecimal(0)"/>
 
         <!-- Bemessungsgrundlage der sonstigen Einkuenfte (ohne Verguetung
@@ -211,7 +215,10 @@
 		<OUTPUT name="VKVSONST" type="BigDecimal" default="new BigDecimal(0)"/> <!--Neu 2014 Ursprünglich INTERNAL definiert -->
 
 
-    <!--  INTERNE FELDER  -->
+    </OUTPUTS>
+
+	    <!--  INTERNE FELDER  -->
+		<INTERNALS>
     	<!-- spezielles ZVE f. Einkommensteuer-Berechnung, dieses darf negativ werden. -->
     	<INTERNAL name="zveEkSt" type="BigDecimal" default="new BigDecimal(0)"/>
     	
@@ -467,6 +474,8 @@
 		 <!-- Jahreswert der berücksichtigten Beiträge zur privaten Basis-Krankenversicherung und 
 			  privaten Pflege-Pflichtversicherung (ggf. auch die Mindestvorsorgepauschale) in Cent. -->
         <INTERNAL name="VKV" type="BigDecimal" default="new BigDecimal(0)"/>
+        
+		</INTERNALS>
 		
     </VARIABLES>
 

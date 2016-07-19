@@ -10,4 +10,6 @@ exports.lohnsteuer2011Dez = require('./lohnsteuer2011Dez');
 exports.lohnsteuer2012 = require('./lohnsteuer2012');
 exports.lohnsteuer2013 = require('./lohnsteuer2013');
 exports.lohnsteuer2014 = require('./lohnsteuer2014');
-exports.lohnsteuer2015 = require('./lohnsteuer2015');
+exports.lohnsteuer2015BisNov = require('./lohnsteuer2015BisNov');
+exports.lohnsteuer2015Dez = require('./lohnsteuer2015Dez');
+exports.lohnsteuer2016 = require('./lohnsteuer2016');

@@ -1,10 +1,11 @@
-<PAP name="Lohnsteuer2011Big">   
+<PAP name="Lohnsteuer2011Big" version="1.0">   
     <VARIABLES> 
    
-		<!-- Stand: 2011-26-10, 11:25 -->
+		<!-- Stand:  2015-11-16  -->
 		<!-- ZIVIT Düsseldorf--> 
 
     <!--  EINGABEPARAMETER  -->
+    <INPUTS>
         <!-- 1, wenn die Anwendung des Faktorverfahrens gewählt wurden (nur in Steuerklasse IV) -->
         <INPUT name="af" type="int" default="1.0"/>
 
@@ -156,8 +157,9 @@
     	<!-- In SONSTB enthaltene Entschädigungen nach § 24 Nummer 1 EStG in Cent -->
     	<INPUT name="SONSTENT" type="BigDecimal" default="BigDecimal.ZERO"/>
 
+    </INPUTS>
     <!--  AUSGABEPARAMETER  -->
-
+	<OUTPUTS type="STANDARD">
         <!-- Bemessungsgrundlage fuer die Kirchenlohnsteuer in Cents -->
         <OUTPUT name="BK" type="BigDecimal" default="new BigDecimal(0)" />
 
@@ -189,8 +191,10 @@
         <!-- Lohnsteuer fuer Verguetung fuer mehrjaehrige Taetigkeit in Cents -->
         <OUTPUT name="STV" type="BigDecimal" default="new BigDecimal(0)" />
 
+	</OUTPUTS>
 
     <!--  INTERNE FELDER  -->
+    <INTERNALS>
     	<!-- Rentenbemessungs-Grenze neue Bundesländer in EUR -->
     	<INTERNAL name="RENTBEMESSUNGSGR_OST_2011" type="BigDecimal" default="new BigDecimal(57600)"/>
     	
@@ -429,7 +433,7 @@
         <INTERNAL name="ZZX"   type="BigDecimal" default="new BigDecimal(0)" />
         <INTERNAL name="HOCH"  type="BigDecimal" default="new BigDecimal(0)" />
         <INTERNAL name="VERGL" type="BigDecimal" default="new BigDecimal(0)" />
-
+		</INTERNALS>
     </VARIABLES>
 
     <CONSTANTS>

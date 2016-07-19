@@ -1,11 +1,11 @@
-<PAP name="Lohnsteuer2008Big">
+<PAP name="Lohnsteuer2008Big" version="1.0">
     <VARIABLES>
 
-		<!-- Stand: 2008-03-10, 08:00 -->
-		<!-- ZIVIT BONN-->
+		<!-- Stand: 2015-11-16 -->
+		<!-- ZIVIT Düsseldorf-->
 
     <!--  EINGABEPARAMETER  -->
-
+  <INPUTS>
         <!-- Auf die Vollendung des 64. Lebensjahres folgende
              Kalenderjahr (erforderlich, wenn ALTER1=1) -->
         <INPUT name="AJAHR" type="int" />
@@ -120,7 +120,10 @@
              erforderlich bei Jahresberechnung (LZZ = 1) -->
         <INPUT name="ZMVB" type="int" regex_test="" regex_transform="" />
 
-    <!--  AUSGABEPARAMETER  -->
+   	</INPUTS>
+
+    	<!--  AUSGABEPARAMETER  -->
+		<OUTPUTS type="STANDARD">
 
         <!-- Bemessungsgrundlage fuer die Kirchenlohnsteuer in Cents -->
         <OUTPUT name="BK" type="BigDecimal" default="new BigDecimal(0)" />
@@ -154,7 +157,10 @@
         <OUTPUT name="STV" type="BigDecimal" default="new BigDecimal(0)" />
 
 
-    <!--  INTERNE FELDER  -->
+   	</OUTPUTS>
+
+	    <!--  INTERNE FELDER  -->
+		<INTERNALS>
 
         <!-- Altersentlastungsbetrag nach AlterseinkÃ¼nftegesetz in â‚¬,
              Cent (2 Dezimalstellen) -->
@@ -385,7 +391,7 @@
         <INTERNAL name="ZZX"   type="BigDecimal" default="new BigDecimal(0)" />
         <INTERNAL name="HOCH"  type="BigDecimal" default="new BigDecimal(0)" />
         <INTERNAL name="VERGL" type="BigDecimal" default="new BigDecimal(0)" />
-
+		</INTERNALS>
     </VARIABLES>
 
     <CONSTANTS>

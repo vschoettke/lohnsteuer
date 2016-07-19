@@ -1,9 +1,10 @@
-<PAP name="Lohnsteuer2012Big">   
+<PAP name="Lohnsteuer2012Big" version="1.0">   
     <VARIABLES> 
-		<!-- Stand: 2011-12-12, 18:25 -->
+		<!-- Stand: 2015-11-16 -->
 		<!-- ZIVIT Düsseldorf--> 
 
     <!--  EINGABEPARAMETER  -->
+    <INPUTS>
         <!-- 1, wenn die Anwendung des Faktorverfahrens gewählt wurden (nur in Steuerklasse IV) -->
         <INPUT name="af" type="int" default="1.0"/>
 
@@ -154,9 +155,9 @@
     	
     	<!-- In SONSTB enthaltene Entschädigungen nach § 24 Nummer 1 EStG in Cent -->
     	<INPUT name="SONSTENT" type="BigDecimal" default="BigDecimal.ZERO"/>
-
+	</INPUTS>
     <!--  AUSGABEPARAMETER  -->
-
+	<OUTPUTS type="STANDARD">
         <!-- Bemessungsgrundlage fuer die Kirchenlohnsteuer in Cents -->
         <OUTPUT name="BK" type="BigDecimal" default="new BigDecimal(0)" />
 
@@ -188,8 +189,9 @@
         <!-- Lohnsteuer fuer Verguetung fuer mehrjaehrige Taetigkeit in Cents -->
         <OUTPUT name="STV" type="BigDecimal" default="new BigDecimal(0)" />
 
-
+	</OUTPUTS>
     <!--  INTERNE FELDER  -->
+    <INTERNALS>
     	<!-- spezielles ZVE f. Einkommensteuer-Berechnung, dieses darf negativ werden. -->
     	<INTERNAL name="zveEkSt" type="BigDecimal" default="new BigDecimal(0)" />
     	
@@ -443,6 +445,8 @@
 			 auch negativ sein. Für tarifermäßigt zu besteuernde Vergütungen für mehrjährige 
 			 Tätigkeiten enthält der PAP keinen entsprechenden Ausgabewert. -->
 		<INTERNAL name="VKVSONST" type="BigDecimal" default="new BigDecimal(0)" />
+		
+		</INTERNALS>
     </VARIABLES>
 
     <CONSTANTS>

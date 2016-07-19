@@ -29,7 +29,7 @@ describe('lohnsteuer', function () {
 //           <ausgabe name="VKVSONST" value="0" />
 //         </ausgaben>
 //       </lohnsteuer>
-        expect(lohnsteuer.forYear(2015, {asNumbers: true})({
+        expect(lohnsteuer.forYear("2015BisNov", {asNumbers: true})({
             STKL: 1,
             LZZ: 1,
             RE4: 2500000

@@ -1,8 +1,8 @@
-<PAP name="Lohnsteuer2006Big">
+<PAP name="Lohnsteuer2006Big" version="1.0">
     <VARIABLES>
 
     <!--  EINGABEPARAMETER  -->
-
+ <INPUTS>
         <!-- Auf die Vollendung des 64. Lebensjahres folgende 
              Kalenderjahr (erforderlich, wenn ALTER1=1) -->
         <INPUT name="AJAHR" type="int">
@@ -140,7 +140,10 @@
         <INPUT name="ZMVB" type="int" regex_test="" regex_transform="">
         </INPUT>
 
-    <!--  AUSGABEPARAMETER  -->
+    	</INPUTS>
+
+    	<!--  AUSGABEPARAMETER  -->
+		<OUTPUTS type="STANDARD">
 
         <!-- Bemessungsgrundlage fuer die Kirchenlohnsteuer in Cents -->
         <OUTPUT name="BK" type="BigDecimal" default="new BigDecimal(0)" />
@@ -174,7 +177,10 @@
         <OUTPUT name="STV" type="BigDecimal" default="new BigDecimal(0)" />
 
 
-    <!--  INTERNE FELDER  -->
+   		</OUTPUTS>
+
+	    <!--  INTERNE FELDER  -->
+		<INTERNALS>
 
         <!-- Altersentlastungsbetrag nach Alterseinkuenftegesetz in Cents -->
         <INTERNAL name="ALTE" type="BigDecimal" default="new BigDecimal(0)" />
@@ -359,7 +365,7 @@
         <INTERNAL name="ZZX" type="BigDecimal" default="new BigDecimal(0)" />
         <INTERNAL name="HOCH" type="BigDecimal" default="new BigDecimal(0)" />
         <INTERNAL name="VERGL" type="BigDecimal" default="new BigDecimal(0)" />
-
+		</INTERNALS>
     </VARIABLES>
 
     <CONSTANTS>
