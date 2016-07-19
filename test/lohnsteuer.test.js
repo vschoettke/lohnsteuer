@@ -29,7 +29,7 @@ describe('lohnsteuer', function () {
 //           <ausgabe name="VKVSONST" value="0" />
 //         </ausgaben>
 //       </lohnsteuer>
-        expect(lohnsteuer.forYear("2015BisNov", {asNumbers: true})({
+        expect(lohnsteuer.algorithmByName("2015BisNov", {asNumbers: true})({
             STKL: 1,
             LZZ: 1,
             RE4: 2500000
@@ -48,4 +48,32 @@ describe('lohnsteuer', function () {
         });
     });
 
+    it('should return the algorithm based on the date', function () {
+        expect(lohnsteuer.algorithmForDate(new Date(2015, 2, 1), {asNumbers: true})({
+            STKL: 1,
+            LZZ: 1,
+            RE4: 2500000
+        })).to.eql({
+            BK: 0,
+            BKS: 0,
+            BKV: 0,
+            LSTLZZ: 277400,
+            SOLZLZZ: 15260,
+            SOLZS: 0,
+            SOLZV: 0,
+            STS: 0,
+            STV: 0,
+            VKVLZZ: 0,
+            VKVSONST: 0
+        });
+    });
+
+    it('should throw if no algorithm is available', function () {
+        expect(function () {
+            lohnsteuer.algorithmByName('2001');
+        }).to.throw('No german income tax algorithm for name 2001 available');
+        expect(function () {
+            lohnsteuer.algorithmForDate(new Date(2001, 2, 1));
+        }).to.throw('No german income tax algorithm for given date 2001-02-28T23:00:00.000Z available');
+    });
 });
