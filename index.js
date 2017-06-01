@@ -1,7 +1,7 @@
 /*jslint node: true*/
-'use strict';
+"use strict";
 
-var lohnsteuerFuncs = require('./lohnsteuer');
+var lohnsteuerFuncs = require("./lohnsteuer");
 
 function resultsToNumbers(results) {
     return Object.keys(results).reduce(function (res, key) {
@@ -42,7 +42,7 @@ var algorithms = {
 };
 
 function algorithmByName(name, options) {
-    var lohnsteuerFunc = lohnsteuerFuncs['lohnsteuer' + name];
+    var lohnsteuerFunc = lohnsteuerFuncs["lohnsteuer" + name];
 
     if (!lohnsteuerFunc) {
         throw new Error("No german income tax algorithm for name " + String(name) + " available");
@@ -61,11 +61,11 @@ function algorithmByName(name, options) {
 }
 
 function algorithmForDate(date, options) {
-    var dateTs = new Date(date).getTime(),
-        foundAlgorithmName = Object.keys(algorithms).filter(function (algorithmName) {
-            var info = algorithms[algorithmName];
-            return dateTs >= info.from.getTime() && dateTs < info.exclusiveTo.getTime();
-        })[0];
+    var dateTs = new Date(date).getTime();
+    var foundAlgorithmName = Object.keys(algorithms).filter(function (algorithmName) {
+        var info = algorithms[algorithmName];
+        return dateTs >= info.from.getTime() && dateTs < info.exclusiveTo.getTime();
+    })[0];
 
     if (!foundAlgorithmName) {
         throw new Error("No german income tax algorithm for given date " + new Date(dateTs).toISOString() + " available");

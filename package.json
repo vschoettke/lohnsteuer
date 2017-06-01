@@ -10,12 +10,12 @@
   },
   "devDependencies": {
     "chai": "^3.3.0",
-    "jslint": "^0.9.3",
+    "jslinter": "1.5.19",
     "mocha": "^2.3.3"
   },
   "scripts": {
     "test": "mocha",
-    "lint": "jslint --edition=2014-07-08 helper/*.js *.js",
+    "lint": "jslint --fudge=true helper/*.js *.js",
     "postinstall": "node helper/convert.js helper/Lohnsteuer2006Big.xml >lohnsteuer/lohnsteuer2006.js && node helper/convert.js helper/Lohnsteuer2007Big.xml >lohnsteuer/lohnsteuer2007.js && node helper/convert.js helper/Lohnsteuer2008Big.xml >lohnsteuer/lohnsteuer2008.js && node helper/convert.js helper/Lohnsteuer2009Big.xml >lohnsteuer/lohnsteuer2009.js && node helper/convert.js helper/Lohnsteuer2010Big.xml >lohnsteuer/lohnsteuer2010.js && node helper/convert.js helper/Lohnsteuer2011BisNovember.xml >lohnsteuer/lohnsteuer2011BisNov.js && node helper/convert.js helper/Lohnsteuer2011Dezember.xml >lohnsteuer/lohnsteuer2011Dez.js && node helper/convert.js helper/Lohnsteuer2012.xml >lohnsteuer/lohnsteuer2012.js && node helper/convert.js helper/Lohnsteuer2013_2.xml >lohnsteuer/lohnsteuer2013.js && node helper/convert.js helper/Lohnsteuer2014.xml >lohnsteuer/lohnsteuer2014.js && node helper/convert.js helper/Lohnsteuer2015BisNovember.xml >lohnsteuer/lohnsteuer2015BisNov.js && node helper/convert.js helper/Lohnsteuer2015Dezember.xml >lohnsteuer/lohnsteuer2015Dez.js && node helper/convert.js helper/Lohnsteuer2016.xml >lohnsteuer/lohnsteuer2016.js && node helper/convert.js helper/Lohnsteuer2017.xml >lohnsteuer/lohnsteuer2017.js"
   },
   "author": "Vincent Schoettke <vincentschoettke@gmail.com>",

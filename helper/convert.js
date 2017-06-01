@@ -1,40 +1,39 @@
 /*jslint node: true*/
-'use strict';
+"use strict";
 
-var fs = require('fs');
-var sax = require("sax"),
-    strict = true; // set to false for html-mode
+var fs = require("fs");
+var sax = require("sax");
+var strict = true; // set to false for html-mode
 
-var header = '/*jslint node:true*/\n' +
-    '\'use strict\';\n' +
-    '\nvar BigDecimal = require(\'big-decimal\');\n' +
-    'if (typeof BigDecimal !== \'function\') {\n' +
-    '    BigDecimal = BigDecimal.BigDecimal;\n' +
-    '}\n\n';
+var header = "/*jslint node:true*/\n" +
+        "\"use strict\";\n" +
+        "\nvar BigDecimal = require(\"big-decimal\");\n" +
+        "if (typeof BigDecimal !== \"function\") {\n" +
+        "    BigDecimal = BigDecimal.BigDecimal;\n" +
+        "}\n\n";
 
-var result = '';
+var result = "";
 
 var indentLevel = 0;
 
 var className;
 
 function cleanupCode(codeLine) {
-    /*jslint regexp: true*/
-    var classPrefix = new RegExp(className + '.', 'g');
+    var classPrefix = new RegExp(className + ".", "g");
 
     // add extra space for =, remove spaces if function is invoked
     return codeLine
-        .replace(/\s*\(\s*/g, '(') // remove whitespace around (
-        .replace(/\s*\)/g, ')') // remove whitespace before )
-        .replace(/\=\=/g, '===') // avoid type coersion
-        .replace(/!=/g, '!==') // avoid type coersion
-        .replace(/,([^\s])/g, ', $1')
-        .replace(/([a-zA-Z0-9])\s*=\s*([^=])/, '$1 = $2')
-        .replace(/new BigDecimal\(((?:\d+)(?:\.\d*)?)\)/g, 'new BigDecimal("$1")')
-        .replace(/BigDecimal\.valueOf\(((?:\d+)(?:\.\d*)?)[LD]?\)/g, 'new BigDecimal("$1")')
-        .replace(/BigDecimal\.valueOf\((.*?)\)/g, 'new BigDecimal(String($1))')
-        .replace(classPrefix, '') // remove the class prefix, all is local
-        .replace(/new BigDecimal\("0(?:\.0*)?"\)/g, 'BigDecimal.ZERO')
+        .replace(/\s*\(\s*/g, "(") // remove whitespace around (
+        .replace(/\s*\)/g, ")") // remove whitespace before )
+        .replace(/\=\=/g, "===") // avoid type coersion
+        .replace(/!=/g, "!==") // avoid type coersion
+        .replace(/,([^\s])/g, ", $1")
+        .replace(/([a-zA-Z0-9])\s*=\s*([^=])/, "$1 = $2")
+        .replace(/new\sBigDecimal\(((?:\d+)(?:\.\d*)?)\)/g, "new BigDecimal(\"$1\")")
+        .replace(/BigDecimal\.valueOf\(((?:\d+)(?:\.\d*)?)[LD]?\)/g, "new BigDecimal(\"$1\")")
+        .replace(/BigDecimal\.valueOf\((.*?)\)/g, "new BigDecimal(String($1))")
+        .replace(classPrefix, "") // remove the class prefix, all is local
+        .replace(/new\sBigDecimal\("0(?:\.0*)?"\)/g, "BigDecimal.ZERO")
         .trim();
 }
 
@@ -49,7 +48,7 @@ function decIndent() {
 function appendLine(line) {
     var arr = [];
     arr.length = indentLevel * 4 + 1;
-    result += arr.join(' ');
+    result += arr.join(" ");
     result += line;
 }
 
@@ -62,45 +61,65 @@ function removeAppendedChar() {
 }
 
 function appendInputVariableDeclaration(data) {
-    appendLine('// ' + data.type + (data.default === undefined ? ' - Implicit Default' : '')  + '\n');
-    var wrappedInputArg = (data.type === 'BigDecimal') ? 'new BigDecimal(String(args.' + data.name + '))' : 'args.' + data.name;
-    appendLine('var ' + data.name + ' = ' +
+    appendLine(
+        "// " + data.type +
         (data.default === undefined
-        ? '(args.' + data.name + ' !== undefined) ? ' + wrappedInputArg + ' : ' + (data.type === 'BigDecimal' ? 'BigDecimal.ZERO' : '0')
-        : '(args.' + data.name + ' !== undefined) ? ' + wrappedInputArg + ' : ' + cleanupCode(data.default)) +
-        ';\n');
+            ? " - Implicit Default"
+            : "") +
+        "\n"
+    );
+    var wrappedInputArg = (data.type === "BigDecimal")
+        ? "new BigDecimal(String(args." + data.name + "))"
+        : "args." + data.name;
+    appendLine(
+        "var " + data.name + " = " + (
+            data.default === undefined
+                ? "(args." + data.name + " !== undefined) ? " + wrappedInputArg + " : " + (
+                    data.type === "BigDecimal"
+                        ? "BigDecimal.ZERO"
+                        : "0"
+                )
+                : "(args." + data.name + " !== undefined) ? " + wrappedInputArg + " : " + cleanupCode(data.default)
+        ) + ";\n"
+    );
 }
 
 function appendVariableDeclaration(data) {
-    appendLine('var ' + data.name + (data.default !== undefined ? ' = ' + cleanupCode(data.default) : '') + '; // ' + data.type + '\n');
+    appendLine("var " + data.name + (
+        data.default !== undefined
+            ? " = " + cleanupCode(data.default)
+            : ""
+    ) + "; // " + data.type + "\n");
 }
 
 var constants = "";
 
 function appendConstant(data) {
     // transform array (replace {} with [] and remove extra spaces)
-    var cleanedValueLines = cleanupCode(data.value
-                                        .replace(/\{/g, '[')
-                                        .replace(/\}/g, ']')
-                                        .replace(/(\w)\s*\(/g, '$1('))
-            .replace(/\n/g, '') // remove linebreaks
-            .replace(/,\s*/g, ',') // remove whitespace after comma
-            .replace(/,/g, ',\n') // add newline after each comma
-            .split('\n');
+    var cleanedValueLines = cleanupCode(
+        data.value
+            .replace(/\{/g, "[")
+            .replace(/\}/g, "]")
+            .replace(/(\w)\s*\(/g, "$1(")
+    )
+        .replace(/\n/g, "") // remove linebreaks
+        .replace(/,\s*/g, ",") // remove whitespace after comma
+        .replace(/,/g, ",\n") // add newline after each comma
+        .split("\n");
 
-    constants += '// const ' + data.type + '\n';
+    constants += "// const " + data.type + "\n";
 
     if (cleanedValueLines.length === 1) {
-        constants += 'var ' + data.name + ' = ' + cleanedValueLines[0].trim() + ';\n';
+        constants += "var " + data.name + " = " + cleanedValueLines[0].trim() + ";\n";
         return;
     }
 
-    constants += 'var ' + data.name + ' = ' + cleanedValueLines[0].trim() + '\n';
+    constants += "var " + data.name + " = " + cleanedValueLines[0].trim() + "\n";
     incIndent();
     cleanedValueLines.slice(1, cleanedValueLines.length - 1).map(function (line) {
-        constants += line.trim() + '\n';
+        constants += line.trim() + "\n";
     });
-    constants += cleanedValueLines.slice(-1)[0].trim() + ';\n';
+    constants += cleanedValueLines.slice(-1)[0].trim() + ";\n";
     decIndent();
 }
 
@@ -121,53 +140,53 @@ saxStream.on("opentag", function (node) {
     var attributes = node.attributes;
 
     switch (node.name) {
-    case 'INPUT':
+    case "INPUT":
         appendInputVariableDeclaration(attributes);
-        appendString('\n');
+        appendString("\n");
         return;
-    case 'OUTPUT':
+    case "OUTPUT":
         rememberOutputVariable(attributes.name);
         appendVariableDeclaration(attributes);
-        appendString('\n');
+        appendString("\n");
         return;
-    case 'INTERNAL':
+    case "INTERNAL":
         appendVariableDeclaration(attributes);
-        appendString('\n');
+        appendString("\n");
         return;
-    case 'CONSTANT':
+    case "CONSTANT":
         appendConstant(attributes);
-        appendString('\n');
+        appendString("\n");
         return;
-    case 'IF':
-        appendLine('');
-        appendString("if (" + cleanupCode(attributes.expr) + ') ');
+    case "IF":
+        appendLine("");
+        appendString("if (" + cleanupCode(attributes.expr) + ") ");
         return;
-    case 'THEN':
-        appendString('{\n');
+    case "THEN":
+        appendString("{\n");
         incIndent();
         return;
-    case 'ELSE':
+    case "ELSE":
         removeAppendedChar();
-        appendString(' else {\n');
+        appendString(" else {\n");
         incIndent();
         return;
-    case 'METHOD':
-        appendLine('function ' + attributes.name + '() {\n');
+    case "METHOD":
+        appendLine("function " + attributes.name + "() {\n");
         incIndent();
         return;
-    case 'EVAL':
-        appendLine(cleanupCode(attributes.exec) + ';\n');
+    case "EVAL":
+        appendLine(cleanupCode(attributes.exec) + ";\n");
         return;
-    case 'EXECUTE':
-        appendLine(attributes.method + '();\n');
+    case "EXECUTE":
+        appendLine(attributes.method + "();\n");
         return;
-    case 'PAP':
+    case "PAP":
         className = attributes.name;
-        appendLine('module.exports = function ' + attributes.name + '(args) {\n');
+        appendLine("module.exports = function " + attributes.name + "(args) {\n");
         incIndent();
         return;
-    case 'MAIN':
-        appendLine('function main() {\n');
+    case "MAIN":
+        appendLine("function main() {\n");
         incIndent();
         return;
     default:
@@ -178,40 +197,45 @@ saxStream.on("opentag", function (node) {
 
 saxStream.on("closetag", function (nodeName) {
     switch (nodeName) {
-    case 'THEN':
+    case "THEN":
         decIndent();
-        appendLine('}\n');
+        appendLine("}\n");
         return;
-    case 'ELSE':
+    case "ELSE":
         decIndent();
-        appendLine('}\n');
+        appendLine("}\n");
         return;
-    case 'MAIN':
+    case "MAIN":
         decIndent();
-        appendLine('}\n\n');
+        appendLine("}\n\n");
         return;
-    case 'PAP':
-        appendLine('main();\n\n');
-        appendLine('return {\n');
+    case "PAP":
+        appendLine("main();\n\n");
+        appendLine("return {\n");
         incIndent();
         outputVariables.forEach(function (n, i) {
-            appendLine(n + ': ' + n + ((i + 1) >= outputVariables.length ? '' : ',') + '\n');
+            appendLine(n + ": " + n + (
+                (i + 1) >= outputVariables.length
+                    ? ""
+                    : ","
+            ) + "\n");
         });
         decIndent();
-        appendLine('};\n');
+        appendLine("};\n");
         decIndent();
-        appendLine('};\n');
+        appendLine("};\n");
         return;
-    case 'METHOD':
+    case "METHOD":
         decIndent();
-        appendLine('}\n\n');
+        appendLine("}\n\n");
         return;
     }
 });
 
 saxStream.on("comment", function (commentText) {
-    commentText.split('\n').map(function (commentLine) {
-        appendLine(('// ' + commentLine.replace(/\t/g, '    ')).trim() + '\n');
+    commentText.split("\n").map(function (commentLine) {
+        var comment = ("// " + commentLine.replace(/\t/g, "    "));
+        appendLine(comment.trim() + "\n");
     });
 });
 
