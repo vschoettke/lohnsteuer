@@ -95,7 +95,7 @@ describe('lohnsteuer', function () {
         });
     });
 
-    it('should return the algorithm based on the date', function () {
+    it('should return the algorithm based on the date for 2018', function () {
         expect(lohnsteuer.algorithmForDate(new Date(2018, 2, 1), {asNumbers: true})({
             STKL: 1,
             LZZ: 1,
@@ -116,6 +116,32 @@ describe('lohnsteuer', function () {
             VFRBS1: 0,
             VFRBS2: 0,
             WVFRB: 1122100,
+            WVFRBO: 0,
+            WVFRBM: 0
+        });
+    });
+
+    it('should return the algorithm based on the date for 2019', function () {
+        expect(lohnsteuer.algorithmForDate(new Date(2019, 2, 1), {asNumbers: true})({
+            STKL: 1,
+            LZZ: 1,
+            RE4: 2500000
+        })).to.eql({
+            BK: 0,
+            BKS: 0,
+            BKV: 0,
+            LSTLZZ: 243100,
+            SOLZLZZ: 13370,
+            SOLZS: 0,
+            SOLZV: 0,
+            STS: 0,
+            STV: 0,
+            VKVLZZ: 0,
+            VKVSONST: 0,
+            VFRB: 100000,
+            VFRBS1: 0,
+            VFRBS2: 0,
+            WVFRB: 1089700,
             WVFRBO: 0,
             WVFRBM: 0
         });
