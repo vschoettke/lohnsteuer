@@ -153,6 +153,6 @@ describe('lohnsteuer', function () {
         }).to.throw('No german income tax algorithm for name 2001 available');
         expect(function () {
             lohnsteuer.algorithmForDate(new Date(2001, 2, 1));
-        }).to.throw('No german income tax algorithm for given date 2001-02-28T23:00:00.000Z available');
+        }).to.throw(/No german income tax algorithm for given/);
     });
 });
