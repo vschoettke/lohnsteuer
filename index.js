@@ -38,7 +38,10 @@ var algorithms = {
     "2015BisNov": {from: new Date(2015, 0, 1), exclusiveTo: new Date(2015, 11, 1)},
     "2015Dez": {from: new Date(2015, 11, 1), exclusiveTo: new Date(2016, 0, 1)},
     "2016": {from: new Date(2016, 0, 1), exclusiveTo: new Date(2017, 0, 1)},
-    "2017": {from: new Date(2017, 0, 1), exclusiveTo: new Date(2018, 0, 1)}
+    "2017": {from: new Date(2017, 0, 1), exclusiveTo: new Date(2018, 0, 1)},
+    "2018": {from: new Date(2018, 0, 1), exclusiveTo: new Date(2019, 0, 1)},
+    "2019": {from: new Date(2019, 0, 1), exclusiveTo: new Date(2020, 0, 1)},
+    "2020": {from: new Date(2020, 0, 1), exclusiveTo: new Date(2021, 0, 1)}
 };
 
 function algorithmByName(name, options) {

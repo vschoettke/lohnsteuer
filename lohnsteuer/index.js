@@ -14,3 +14,6 @@ exports.lohnsteuer2015BisNov = require('./lohnsteuer2015BisNov');
 exports.lohnsteuer2015Dez = require('./lohnsteuer2015Dez');
 exports.lohnsteuer2016 = require('./lohnsteuer2016');
 exports.lohnsteuer2017 = require('./lohnsteuer2017');
+exports.lohnsteuer2018 = require('./lohnsteuer2018');
+exports.lohnsteuer2019 = require('./lohnsteuer2019');
+exports.lohnsteuer2020 = require('./lohnsteuer2020');
