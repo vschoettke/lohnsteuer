@@ -6,12 +6,12 @@
   "keywords": "german wage tax lohnsteuer pap",
   "dependencies": {
     "big-decimal": "^1.0.2",
-    "sax": "^1.1.3"
+    "sax": "^1.2.4"
   },
   "devDependencies": {
-    "chai": "^3.3.0",
-    "jslinter": "1.5.19",
-    "mocha": "^2.3.3"
+    "chai": "^4.2.0",
+    "jslinter": "^1.5.47",
+    "mocha": "^7.0.0"
   },
   "scripts": {
     "test": "mocha",
