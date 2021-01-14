@@ -17,3 +17,4 @@ exports.lohnsteuer2017 = require('./lohnsteuer2017');
 exports.lohnsteuer2018 = require('./lohnsteuer2018');
 exports.lohnsteuer2019 = require('./lohnsteuer2019');
 exports.lohnsteuer2020 = require('./lohnsteuer2020');
+exports.lohnsteuer2021 = require('./lohnsteuer2021');
