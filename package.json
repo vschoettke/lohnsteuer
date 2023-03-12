@@ -11,7 +11,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "jslinter": "^1.5.47",
-    "mocha": "^7.2.0"
+    "mocha": "^10.2.0"
   },
   "scripts": {
     "test": "mocha",
